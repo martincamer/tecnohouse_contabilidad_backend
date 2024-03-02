@@ -1,6 +1,6 @@
 import { pool } from "../db.js";
 import { createAccessToken } from "../libs/jwt.js";
-const bcrypt = require("bcryptjs");
+import bcrypt from "bcrypt";
 
 // //login
 // export const signin = async (req, res) => {
