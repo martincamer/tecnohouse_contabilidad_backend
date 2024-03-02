@@ -1,6 +1,6 @@
 import { pool } from "../db.js";
 import { createAccessToken } from "../libs/jwt.js";
-import bcrypt from "bcrypt";
+import bcrypts from "bcryptjs";
 
 // //login
 // export const signin = async (req, res) => {
@@ -106,7 +106,7 @@ export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypts.hash(password, 10);
 
     const result = await pool.query(
       "INSERT INTO users(username,password,email,role_id) VALUES($1,$2,$3,$4) RETURNING *",
@@ -142,7 +142,7 @@ export const signupTwo = async (req, res, next) => {
   const { username, email, password, role_id } = req.body;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypts.hash(password, 10);
 
     const result = await pool.query(
       "INSERT INTO users(username,password,email,role_id) VALUES($1,$2,$3,$4) RETURNING *",
