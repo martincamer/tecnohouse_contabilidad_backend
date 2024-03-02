@@ -48,17 +48,3 @@ export const signinSchema = z.object({
       message: "La contraseña sobrepasa los caractares",
     }),
 });
-
-/*export const passwordSchema = z.object({
-  password: z
-    .string({
-      required_error: "El nombre de usuario es requerido",
-      invalid_type_error: "El nombre de usuario debe ser un texto",
-    })
-    .min(6, {
-      message: "La contraseña debe tener almenos 6 caracteres",
-    })
-    .max(255, {
-      message: "La contraseña sobrepasa los caractares",
-    }),
-});*/

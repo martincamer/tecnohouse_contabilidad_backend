@@ -80,7 +80,10 @@ export const signin = async (req, res) => {
     });
   }
 
-  const validPassword = await bcrypt.compare(password, result.rows[0].password);
+  const validPassword = await bcrypts.compare(
+    password,
+    result.rows[0].password
+  );
   if (!validPassword) {
     return res.status(400).json({
       message: "La contraseña es incorrecta",
