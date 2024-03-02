@@ -208,7 +208,7 @@ export const updateUser = async (req, res) => {
     }
 
     // Hash de la nueva contraseña
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypts.hash(password, 10);
 
     // Actualizar los datos del usuario, incluyendo la contraseña hash
     const updateResult = await pool.query(
