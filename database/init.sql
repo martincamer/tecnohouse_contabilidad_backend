@@ -1,0 +1,48 @@
+CREATE TABLE (
+    id SERIAL PRIMARY KEY,
+    detalle VARCHAR(255),
+    tipo TEXT,
+    total numeric,
+);
+
+
+CREATE TABLE users(
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email   VARCHAR(255) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+
+CREATE TABLE tipo(
+    id SERIAL PRIMARY KEY,
+    tipo VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+
+CREATE TABLE presupuesto(
+    id SERIAL PRIMARY KEY,
+    total numeric,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+
+
+
+ALTER TABLE users ADD COLUMN gravatar VARCHAR(255);
+
+ALTER TABLE perfiles ADD COLUMN user_id INTEGER REFERENCES users(id);
+
+ALTER TABLE clientes ADD COLUMN user_id INTEGER REFERENCES users(id);
+
+ALTER TABLE presupuesto ADD COLUMN user_id INTEGER REFERENCES users(id);
+
+ALTER TABLE facturacion ADD COLUMN user_id INTEGER REFERENCES users(id);
+
+ALTER TABLE datos_facturacion ADD COLUMN user_id INTEGER REFERENCES users(id);
+
+ALTER TABLE categorias ADD COLUMN user_id INTEGER REFERENCES users(id);
+
+ALTER TABLE colores ADD COLUMN user_id INTEGER REFERENCES users(id);
