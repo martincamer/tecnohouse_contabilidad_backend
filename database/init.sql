@@ -1,8 +1,20 @@
-CREATE TABLE (
+CREATE TABLE empleados (
     id SERIAL PRIMARY KEY,
-    detalle VARCHAR(255),
-    tipo TEXT,
-    total numeric,
+    empleado VARCHAR(255),
+    fecha date,
+    antiguedad numeric,
+    tipo VARCHAR(255),
+    quincena_del_cinco numeric,
+    quincena_del_veinte numeric,
+    total_antiguedad numeric,
+    banco numeric,
+    premio_asistencia numeric,
+    premio_produccion numeric,
+    comida_produccion numeric,
+    descuento numeric,
+    obs VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -15,34 +27,7 @@ CREATE TABLE users(
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 
-CREATE TABLE tipo(
-    id SERIAL PRIMARY KEY,
-    tipo VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
-
-CREATE TABLE presupuesto(
-    id SERIAL PRIMARY KEY,
-    total numeric,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
-
-
 
 ALTER TABLE users ADD COLUMN gravatar VARCHAR(255);
 
-ALTER TABLE perfiles ADD COLUMN user_id INTEGER REFERENCES users(id);
-
-ALTER TABLE clientes ADD COLUMN user_id INTEGER REFERENCES users(id);
-
-ALTER TABLE presupuesto ADD COLUMN user_id INTEGER REFERENCES users(id);
-
-ALTER TABLE facturacion ADD COLUMN user_id INTEGER REFERENCES users(id);
-
-ALTER TABLE datos_facturacion ADD COLUMN user_id INTEGER REFERENCES users(id);
-
-ALTER TABLE categorias ADD COLUMN user_id INTEGER REFERENCES users(id);
-
-ALTER TABLE colores ADD COLUMN user_id INTEGER REFERENCES users(id);
+ALTER TABLE empleados ADD COLUMN user_id INTEGER REFERENCES users(id);
