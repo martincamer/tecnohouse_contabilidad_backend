@@ -2,11 +2,10 @@ import { pool } from "../db.js";
 
 export const guardarDatosEmpleados = async (req, res, next) => {
   const datos = req.body;
-
   try {
     // Execute the query with proper parameter binding
     const result = await pool.query(
-      "INSERT INTO ingresos (datos) VALUES ($1) RETURNING *",
+      "INSERT INTO empleados_datos (datos) VALUES ($1) RETURNING *",
       [datos]
     );
 
