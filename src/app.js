@@ -6,6 +6,7 @@ import presupuestoRoutes from "./routes/presupuesto.routes.js";
 import tiposRoutes from "./routes/tipo.routes.js";
 import empleadosRoutes from "./routes/empleados.routes.js";
 import fabricaRoutes from "./routes/fabricas.routes.js";
+import datosEmpleadosRoutes from "./routes/empleadosDatos.routes.js";
 
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -43,6 +44,7 @@ app.use("/api", presupuestoRoutes);
 app.use("/api", tiposRoutes);
 app.use("/api", empleadosRoutes);
 app.use("/api", fabricaRoutes);
+app.use("/api", datosEmpleadosRoutes);
 
 //error handler
 app.use((err, req, res, next) => {
