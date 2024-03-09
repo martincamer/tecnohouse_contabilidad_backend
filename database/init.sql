@@ -17,7 +17,7 @@ CREATE TABLE empleados (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE empleados (
+CREATE TABLE empleados_datos (
     id SERIAL PRIMARY KEY,
     datos json,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
