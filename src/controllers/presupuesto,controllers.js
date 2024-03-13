@@ -21,12 +21,13 @@ export const getPresupuesto = async (req, res) => {
 };
 
 export const createPresupuesto = async (req, res, next) => {
-  const { total } = req.body;
+  const { detalle, tipo, total } = req.body;
+  const { username, userRole } = req;
 
   try {
     const result = await pool.query(
-      "INSERT INTO presupuesto (total) VALUES ($1) RETURNING *",
-      [total]
+      "INSERT INTO presupuesto (detalle, tipo, total, usuario, rol) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [detalle, tipo, total, username, userRole]
     );
 
     res.json(result.rows[0]);
@@ -42,11 +43,13 @@ export const createPresupuesto = async (req, res, next) => {
 
 export const actualizarPresupuesto = async (req, res) => {
   const id = req.params.id;
-  const { total } = req.body;
+  const { total, detalle, tipo } = req.body;
+
+  const { username, userRole } = req;
 
   const result = await pool.query(
-    "UPDATE presupuesto SET total = $1 WHERE id = $2",
-    [total, id]
+    "UPDATE presupuesto SET total = $1, detalle = $2, tipo = $3, usuario = $4, rol = $5 WHERE id = $6",
+    [total, detalle, tipo, username, userRole, id]
   );
 
   if (result.rowCount === 0) {
