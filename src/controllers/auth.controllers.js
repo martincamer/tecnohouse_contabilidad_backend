@@ -24,10 +24,11 @@ export const signin = async (req, res) => {
       message: "La contraseña es incorrecta",
     });
   }
-
   const expirationDate = new Date(); // Fecha actual
   expirationDate.setFullYear(expirationDate.getFullYear() + 1); // Añadir un año
   expirationDate.setDate(expirationDate.getDate() + 7); // Añadir una semana
+
+  const expiresIn = Math.floor((expirationDate.getTime() - Date.now()) / 1000); // Calcular la diferencia de tiempo en segundos
 
   const token = jwt.sign(
     {
@@ -36,7 +37,7 @@ export const signin = async (req, res) => {
     },
     "react2021",
     {
-      expiresIn: Math.floor(expirationDate.getTime() / 1000), // Convertir a segundos
+      expiresIn: expiresIn, // Establecer el tiempo de expiración en segundos
     }
   );
 
@@ -44,8 +45,9 @@ export const signin = async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: "none",
-    expires: expirationDate, // Establecer la fecha de expiración de la cookie
+    expiresIn: expiresIn, // Establecer el tiempo de expiración en segundos para la cookie
   });
+
   // const token = await createAccessToken({
   //   id: result.rows[0].id,
   //   role: result.rows[0].role_id,
