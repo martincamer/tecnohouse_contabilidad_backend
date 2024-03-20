@@ -24,41 +24,17 @@ export const signin = async (req, res) => {
       message: "La contraseña es incorrecta",
     });
   }
-  const expirationDate = new Date(); // Fecha actual
-  expirationDate.setFullYear(expirationDate.getFullYear() + 1); // Añadir un año
-  expirationDate.setDate(expirationDate.getDate() + 7); // Añadir una semana
-
-  const expiresIn = Math.floor((expirationDate.getTime() - Date.now()) / 1000); // Calcular la diferencia de tiempo en segundos
-
-  const token = jwt.sign(
-    {
-      id: result.rows[0].id,
-      role: result.rows[0].role_id,
-    },
-    "react2021",
-    {
-      expiresIn: expiresIn, // Establecer el tiempo de expiración en segundos
-    }
-  );
+  const token = await createAccessToken({
+    id: result.rows[0].id,
+    role: result.rows[0].role_id,
+  });
 
   res.cookie("token", token, {
     httpOnly: true,
     secure: true,
     sameSite: "none",
-    expiresIn: expiresIn, // Establecer el tiempo de expiración en segundos para la cookie
+    maxAge: 365 * 24 * 60 * 60 * 1000, // Un año en milisegundos
   });
-
-  // const token = await createAccessToken({
-  //   id: result.rows[0].id,
-  //   role: result.rows[0].role_id,
-  // });
-
-  // res.cookie("token", token, {
-  //   httpOnly: true,
-  //   secure: true,
-  //   sameSite: "none",
-  //   maxAge: 365 * 24 * 60 * 60 * 1000, // Un año en milisegundos
-  // });
 
   return res.json(result.rows[0]);
 };
