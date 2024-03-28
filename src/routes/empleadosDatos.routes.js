@@ -1,6 +1,7 @@
 import Router from "express-promise-router";
 import { isAuth } from "../middlewares/auth.middleware.js";
 import {
+  getDatosEmpleadoById,
   getDatosEmpleados,
   getEmpleadosDatosPorRangoDeFechas,
   guardarDatosEmpleados,
@@ -18,6 +19,14 @@ router.post(
   isAuth,
   isAdmin,
   getEmpleadosDatosPorRangoDeFechas
+);
+
+// Ruta para obtener datos de un solo empleado por ID
+router.get(
+  "/empleados-datos-particular/:id",
+  isAuth,
+  isAdmin,
+  getDatosEmpleadoById
 );
 
 export default router;
