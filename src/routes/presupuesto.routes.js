@@ -6,6 +6,7 @@ import {
   getPresupuesto,
   getPresupuestoMesActual,
   getPresupuestoPorMes,
+  getPresupuestoPorRangoDeFechas,
   getPresupuestos,
 } from "../controllers/presupuesto,controllers.js";
 import { isAuth } from "../middlewares/auth.middleware.js";
@@ -26,5 +27,12 @@ router.put("/presupuestos/:id", isAuth, isAdmin, actualizarPresupuesto);
 router.delete("/presupuestos/:id", isAuth, isAdmin, eliminarGasto);
 
 router.get("/presupuesto/mes/:mes", isAuth, isAdmin, getPresupuestoPorMes);
+
+router.post(
+  "/presupuesto/rango-fechas",
+  isAuth,
+  isAdmin,
+  getPresupuestoPorRangoDeFechas
+);
 
 export default router;
