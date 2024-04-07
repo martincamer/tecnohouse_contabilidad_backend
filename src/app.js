@@ -1,6 +1,6 @@
 import express from "express";
 import morgan from "morgan";
-import ingresosRoutes from "./routes/ingresos.routes.js";
+import datosRoutes from "./routes/datos.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import presupuestoRoutes from "./routes/presupuesto.routes.js";
 import tiposRoutes from "./routes/tipo.routes.js";
@@ -39,7 +39,7 @@ app.get("/api/ping", async (req, res) => {
   return res.json(result.rows[0]);
 });
 app.use("/api", authRoutes);
-app.use("/api", ingresosRoutes);
+app.use("/api", datosRoutes);
 app.use("/api", presupuestoRoutes);
 app.use("/api", tiposRoutes);
 app.use("/api", empleadosRoutes);

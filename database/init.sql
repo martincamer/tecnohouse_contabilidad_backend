@@ -25,6 +25,17 @@ CREATE TABLE empleados_datos (
 );
 
 
+CREATE TABLE datos (
+    id SERIAL PRIMARY KEY,
+    egresos json,
+    presupuestoAsignado,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
