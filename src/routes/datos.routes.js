@@ -8,6 +8,10 @@ import {
   getDatos,
   getDatosMesActual,
   getDatosPorRangoDeFechas,
+  getCanjesPorRangoDeFechas,
+  actualizarCanje,
+  getDatosCanjes,
+  crearCanjes,
 } from "../controllers/datos.controllers.js";
 
 const router = Router();
@@ -25,5 +29,13 @@ router.post("/crear-datos", isAuth, createDato);
 router.put("/editar-datos/:id", actualizarDato);
 
 router.delete("/datos/:id", isAuth, eliminarDato);
+
+router.post("/canjes/rango-fechas", isAuth, getCanjesPorRangoDeFechas);
+
+router.put("/editar-canjes/:id", actualizarCanje);
+
+router.get("/datos-canjes", getDatosCanjes);
+
+router.post("/crear-canjes", isAuth, crearCanjes);
 
 export default router;
