@@ -22,67 +22,31 @@ export const getEmpleado = async (req, res) => {
 
 export const createEmpleado = async (req, res, next) => {
   const {
-    empleado,
-    fecha,
-    antiguedad,
-    tipo,
-    quincena_del_cinco,
-    quincena_del_veinte,
-    total_antiguedad,
-    banco,
-    premio_asistencia,
-    premio_produccion,
-    comida_produccion,
-    descuento,
-    obs,
-    total_quincena,
-    total_quincena_veinte,
-    total_final,
-    tipo_fabrica,
-    otros,
+    empleado = "",
+    fecha = "",
+    antiguedad = 0,
+    tipo = "",
+    quincena_del_cinco = 0,
+    quincena_del_veinte = 0,
+    total_antiguedad = 0,
+    banco = 0,
+    premio_asistencia = 0,
+    premio_produccion = 0,
+    comida_produccion = 0,
+    descuento = 0,
+    obs = "",
+    total_quincena = 0,
+    total_quincena_veinte = 0,
+    total_final = 0,
+    tipo_fabrica = "",
+    otros = "",
+    obs_20 = "",
+    descuento_20 = 0,
   } = req.body;
-  //   const { username, userRole } = req;
-
-  // Validaciones
-  if (!empleado || typeof empleado !== "string") {
-    return res.status(400).json({
-      message: "El campo 'empleado' es obligatorio y debe ser un texto.",
-    });
-  }
-
-  const isNumeric = (value) => /^-?\d*\.?\d*$/.test(value);
-
-  if (
-    !isNumeric(antiguedad) ||
-    !isNumeric(quincena_del_cinco) ||
-    !isNumeric(quincena_del_veinte) ||
-    !isNumeric(total_antiguedad) ||
-    !isNumeric(banco) ||
-    !isNumeric(premio_asistencia) ||
-    !isNumeric(premio_produccion) ||
-    !isNumeric(comida_produccion) ||
-    !isNumeric(descuento)
-  ) {
-    return res.status(400).json({
-      message: "Los campos numéricos deben contener valores válidos.",
-    });
-  }
-
-  if (typeof tipo !== "string") {
-    return res.status(400).json({
-      message: "El campo 'tipo' debe ser un texto.",
-    });
-  }
-
-  if (typeof obs !== "string") {
-    return res.status(400).json({
-      message: "El campo 'tipo' debe ser un texto.",
-    });
-  }
 
   try {
     const result = await pool.query(
-      "INSERT INTO empleados (empleado, fecha, antiguedad, tipo, quincena_del_cinco, quincena_del_veinte, total_antiguedad, banco, premio_asistencia, premio_produccion, comida_produccion, descuento, obs, total_quincena,total_quincena_veinte,total_final, tipo_fabrica, otros) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18) RETURNING *",
+      "INSERT INTO empleados (empleado, fecha, antiguedad, tipo, quincena_del_cinco, quincena_del_veinte, total_antiguedad, banco, premio_asistencia, premio_produccion, comida_produccion, descuento, obs, total_quincena,total_quincena_veinte,total_final, tipo_fabrica, otros, obs_20, descuento_20) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20) RETURNING *",
       [
         empleado,
         fecha,
@@ -102,6 +66,8 @@ export const createEmpleado = async (req, res, next) => {
         total_final,
         tipo_fabrica,
         otros,
+        obs_20,
+        descuento_20,
       ]
     );
 
@@ -119,24 +85,26 @@ export const createEmpleado = async (req, res, next) => {
 export const actualizarEmpleado = async (req, res) => {
   const id = req.params.id;
   const {
-    empleado,
-    fecha,
-    antiguedad,
-    tipo,
-    quincena_del_cinco,
-    quincena_del_veinte,
-    total_antiguedad,
-    banco,
-    premio_asistencia,
-    premio_produccion,
-    comida_produccion,
-    descuento,
-    obs,
-    total_quincena,
-    total_quincena_veinte,
-    total_final,
-    tipo_fabrica,
-    otros,
+    empleado = "",
+    fecha = "",
+    antiguedad = 0,
+    tipo = "",
+    quincena_del_cinco = 0,
+    quincena_del_veinte = 0,
+    total_antiguedad = 0,
+    banco = 0,
+    premio_asistencia = 0,
+    premio_produccion = 0,
+    comida_produccion = 0,
+    descuento = 0,
+    obs = "",
+    total_quincena = 0,
+    total_quincena_veinte = 0,
+    total_final = 0,
+    tipo_fabrica = "",
+    otros = "",
+    obs_20 = "",
+    descuento_20 = 0,
   } = req.body;
 
   // Validaciones
@@ -146,38 +114,8 @@ export const actualizarEmpleado = async (req, res) => {
     });
   }
 
-  const isNumeric = (value) => /^-?\d*\.?\d*$/.test(value);
-
-  if (
-    !isNumeric(antiguedad) ||
-    !isNumeric(quincena_del_cinco) ||
-    !isNumeric(quincena_del_veinte) ||
-    !isNumeric(total_antiguedad) ||
-    !isNumeric(banco) ||
-    !isNumeric(premio_asistencia) ||
-    !isNumeric(premio_produccion) ||
-    !isNumeric(comida_produccion) ||
-    !isNumeric(descuento)
-  ) {
-    return res.status(400).json({
-      message: "Los campos numéricos deben contener valores válidos.",
-    });
-  }
-
-  if (typeof tipo !== "string") {
-    return res.status(400).json({
-      message: "El campo 'tipo' debe ser un texto.",
-    });
-  }
-
-  if (typeof obs !== "string") {
-    return res.status(400).json({
-      message: "El campo 'tipo' debe ser un texto.",
-    });
-  }
-
   const result = await pool.query(
-    "UPDATE empleados SET empleado = $1 , fecha = $2, antiguedad = $3, tipo = $4, quincena_del_cinco = $5, quincena_del_veinte = $6, total_antiguedad = $7, banco = $8, premio_asistencia = $9, premio_produccion = $10, comida_produccion = $11, descuento = $12, obs = $13, total_quincena = $14 ,total_quincena_veinte = $15, total_final = $16, tipo_fabrica = $17, otros = $18 WHERE id = $19",
+    "UPDATE empleados SET empleado = $1 , fecha = $2, antiguedad = $3, tipo = $4, quincena_del_cinco = $5, quincena_del_veinte = $6, total_antiguedad = $7, banco = $8, premio_asistencia = $9, premio_produccion = $10, comida_produccion = $11, descuento = $12, obs = $13, total_quincena = $14 ,total_quincena_veinte = $15, total_final = $16, tipo_fabrica = $17, otros = $18, obs_20 = $19, descuento_20 = $20 WHERE id = $21",
     [
       empleado,
       fecha,
@@ -197,6 +135,8 @@ export const actualizarEmpleado = async (req, res) => {
       total_final,
       tipo_fabrica,
       otros,
+      obs_20,
+      descuento_20,
       id,
     ]
   );

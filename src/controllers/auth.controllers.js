@@ -48,7 +48,7 @@ export const signup = async (req, res, next) => {
 
     const result = await pool.query(
       "INSERT INTO users(username,password,email,role_id) VALUES($1,$2,$3,$4) RETURNING *",
-      [username, hashedPassword, email, 2] // Assuming 'user' role has an id of 2
+      [username, hashedPassword, email, 1] // Assuming 'user' role has an id of 2
     );
 
     const token = await createAccessToken({
