@@ -2,6 +2,7 @@ import Router from "express-promise-router";
 import { isAuth } from "../middlewares/auth.middleware.js";
 import {
   actualizarEmpleado,
+  aumentarSueldo,
   createEmpleado,
   eliminarEmpleado,
   getEmpleado,
@@ -21,5 +22,7 @@ router.get("/empleados/:id", isAuth, isAdmin, getEmpleado);
 router.put("/empleados/:id", isAuth, isAdmin, actualizarEmpleado);
 //eliminar el empleado
 router.delete("/empleados/:id", isAuth, isAdmin, eliminarEmpleado);
+
+router.post("/aumentar-sueldo", aumentarSueldo);
 
 export default router;
